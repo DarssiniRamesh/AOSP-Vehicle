@@ -1,0 +1,10 @@
+<manifest version="1.0" type="device">
+    <!-- AIDL VHAL demo service -->
+    <hal format="aidl">
+        <name>android.hardware.automotive.vehicle</name>
+        <interface>
+            <name>IVehicle</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</manifest>

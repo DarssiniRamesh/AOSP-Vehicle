@@ -1,1 +1,2 @@
 /vendor/bin/hw/vendor\.nlab\.vehicle@1\.0-service      u:object_r:hal_vehicle_nlab_exec:s0
+/vendor/bin/hw/android\.hardware\.automotive\.vehicle-service\.nlab      u:object_r:hal_vehicle_nlab_exec:s0

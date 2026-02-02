@@ -29,3 +29,49 @@ cc_binary {
         "vendor.nlab.vehicle@1.0",
     ]
 }
+
+//
+// AIDL-based VHAL service demo scaffolding.
+// This is intentionally minimal and intended for use in a full AOSP tree where the AIDL VHAL
+// interface and binder NDK libraries are available.
+//
+cc_binary {
+    name: "android.hardware.automotive.vehicle-service.nlab",
+    init_rc: ["android.hardware.automotive.vehicle-service.nlab.rc"],
+    vintf_fragments: ["android.hardware.automotive.vehicle-service.nlab.xml"],
+    vendor: true,
+    relative_install_path: "hw",
+    overrides: [
+        "android.hardware.automotive.vehicle@2.0-service",
+        "android.hardware.automotive.vehicle@V1-emulator-service",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+
+    local_include_dirs: ["src"],
+
+    // Keep sources under src/, but avoid mixing entrypoints: this binary uses VehicleServiceAidl.cpp.
+    srcs: [
+        "src/aidl/**/*.cpp",
+        // Reuse internal core + simulator for the migration demo.
+        "src/VehicleHalClient.cpp",
+        "src/VehicleHalImpl.cpp",
+        "src/hw-clients/Simulator.cpp",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+    ],
+
+    // In AOSP, binder/AIDL dependencies are typically provided by these libraries.
+    // (Exact names can vary across branches; this is intended as representative wiring.)
+    shared_libs: [
+        "libbinder_ndk",
+    ],
+}
